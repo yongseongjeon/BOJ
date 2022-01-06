@@ -1,3 +1,6 @@
-var fs = require('fs');
-var input = fs.readFileSync('/dev/stdin').toString().split(' ');
-console.log(input[0] / 1 + input[1] / 1);
+const stdin = require('fs').readFileSync('/dev/stdin').toString();
+const sum = stdin
+  .split(' ')
+  .map(Number)
+  .reduce((acc, val) => acc + val);
+console.log(sum);
