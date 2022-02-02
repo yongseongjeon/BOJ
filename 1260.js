@@ -7,7 +7,7 @@ const getFirstLine = (input) => {
   return input.split('\n')[0].split(' ');
 };
 
-const getEdges = (input) => {
+const getVertexs = (input) => {
   return input
     .trim()
     .split('\n')
@@ -15,65 +15,65 @@ const getEdges = (input) => {
     .slice(1);
 };
 
-const [edgeCnt, vertexCnt, edgeNumberToStart] = getFirstLine(stdin);
-const edges = getEdges(stdin);
+const [vertexCnt, edgeCnt, vertexNumberToStart] = getFirstLine(stdin);
+const vertexes = getVertexs(stdin);
 
 // 그래프 그리기
-const drawGraph = (edges, edgeCnt) => {
+const drawGraph = (vertexes, vertexCnt) => {
   const graph = {};
-  Array.from({ length: edgeCnt }).forEach((_, i) => {
+  Array.from({ length: vertexCnt }).forEach((_, i) => {
     graph[i + 1] = [];
   });
-  edges.forEach((edges) => {
-    const [edge1, edge2] = edges;
-    graph[edge1].push(edge2);
-    graph[edge2].push(edge1);
+  vertexes.forEach((vertexes) => {
+    const [vertex1, vertex2] = vertexes;
+    graph[vertex1].push(vertex2);
+    graph[vertex2].push(vertex1);
   });
   return graph;
 };
 
-const graph = drawGraph(edges, edgeCnt);
+const graph = drawGraph(vertexes, vertexCnt);
 
-for (let edge in graph) {
-  graph[edge].sort((a, b) => a - b);
+for (let vertex in graph) {
+  graph[vertex].sort((a, b) => a - b);
 }
 
-let isVisited = [null, ...Array(+edgeCnt).fill(false)];
+let isVisited = [null, ...Array(+vertexCnt).fill(false)];
 
-let queue = [edgeNumberToStart];
-isVisited[edgeNumberToStart] = true;
+let queue = [vertexNumberToStart];
+isVisited[vertexNumberToStart] = true;
 
 result = [];
 
 while (queue.length) {
-  let currentEdge = queue.shift();
-  result.push(currentEdge);
-  graph[currentEdge].forEach((edge) => {
-    if (!isVisited[edge]) {
-      queue.push(edge);
-      isVisited[edge] = true;
+  let currentVertex = queue.shift();
+  result.push(currentVertex);
+  graph[currentVertex].forEach((vertex) => {
+    if (!isVisited[vertex]) {
+      queue.push(vertex);
+      isVisited[vertex] = true;
     }
   });
 }
 
 bfsResult = result.join(' ');
 
-isVisited = [null, ...Array(+edgeCnt).fill(false)];
+isVisited = [null, ...Array(+vertexCnt).fill(false)];
 
 dfsResult = [];
 
-const dfs = (edge) => {
-  if (isVisited[edge]) return;
-  isVisited[edge] = true;
-  dfsResult.push(edge);
-  graph[edge].forEach((edge) => {
-    if (!isVisited[edge]) {
-      dfs(edge);
+const dfs = (vertex) => {
+  if (isVisited[vertex]) return;
+  isVisited[vertex] = true;
+  dfsResult.push(vertex);
+  graph[vertex].forEach((vertex) => {
+    if (!isVisited[vertex]) {
+      dfs(vertex);
     }
   });
 };
 
-dfs(edgeNumberToStart);
+dfs(vertexNumberToStart);
 
 console.log(dfsResult.join(' '));
 console.log(bfsResult);
