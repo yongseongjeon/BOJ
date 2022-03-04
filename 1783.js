@@ -1,4 +1,4 @@
-const stdin = `3 7`;
+const stdin = `2 2`;
 const [N, M] = stdin.split(' ').map(Number);
 
 function solve() {
@@ -6,7 +6,7 @@ function solve() {
     return 1;
   }
   if (N === 2) {
-    return Math.min(4, (M - 1) / 2 + 1);
+    return Math.min(4, Math.floor((M - 1) / 2) + 1);
   }
   if (M >= 7) {
     return M - 2;
