@@ -1,16 +1,33 @@
-const fs = require("fs");
-const stdin = fs.readFileSync("/dev/stdin").toString();
-let input = stdin
+// const stdin = require('fs').readFileSync('/dev/stdin').toString();
+const stdin = `10
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+`;
+const testCases = stdin
   .trim()
-  .split("\n")
+  .split('\n')
+  .slice(1)
   .map((x) => Number(x));
-input.shift();
-const arr = [null, 1, 2, 4];
+console.log('testCases', testCases);
+const dp = [null, 1, 2, 4];
 
 for (let i = 4; i <= 11; i++) {
-  arr[i] = arr[i - 3] + arr[i - 2] + arr[i - 1];
+  dp[i] = dp[i - 3] + dp[i - 2] + dp[i - 1];
 }
 
-input.forEach((x) => {
-  console.log(arr[x]);
-});
+console.log(dp);
+
+function sumOutput(arr) {
+  return arr.reduce((total, tc) => total + `${dp[tc]}\n`, '');
+}
+
+const answer = sumOutput(testCases);
+// console.log(answer);
