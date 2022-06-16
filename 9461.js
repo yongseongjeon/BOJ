@@ -1,15 +1,8 @@
-const fs = require("fs");
-const stdin = fs.readFileSync("/dev/stdin").toString();
-let input = stdin
-  .trim()
-  .split("\n")
-  .map((x) => Number(x));
-input.shift();
-const dpTable = [null, 1, 1, 1, 2, 2];
-const max = Math.max(...input);
-
-for (let i = 6; i <= max; i++) {
-  dpTable[i] = dpTable[i - 3] + dpTable[i - 2];
+const stdin = require('fs').readFileSync('/dev/stdin').toString();
+const T = stdin.trim().split('\n').slice(1).map(Number);
+const dp = [null, 1, 1, 1, 2, 2];
+for (let i = 6; i <= 100; i += 1) {
+  dp[i] = dp[i - 5] + dp[i - 1];
 }
-
-input.forEach((x) => console.log(dpTable[x]));
+const answer = T.reduce((prev, cur) => prev + dp[cur] + '\n', '');
+console.log(answer);
