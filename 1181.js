@@ -1,17 +1,30 @@
-const fs = require('fs');
-const stdin = fs.readFileSync('/dev/stdin').toString().trim().split('\n');
-let input = stdin.slice();
-input = input.filter((x, i) => input.indexOf(x) === i);
-const inputLen = input.shift();
+const stdin = `13
+but
+i
+wont
+hesitate
+no
+more
+no
+more
+it
+cannot
+wait
+im
+yours
+`;
 
-input.sort((a, b) => {
+const wordsInSet = new Set(stdin.trim().split('\n').slice(1));
+const words = Array.from(wordsInSet);
+words.sort((a, b) => {
   if (a.length !== b.length) {
     return a.length - b.length;
-  } else if (a > b) {
-    return 1;
-  } else {
+  }
+  if (a < b) {
     return -1;
   }
+  return 1;
 });
 
-input.forEach((x) => console.log(x));
+const answer = words.reduce((prev, cur) => prev + cur + '\n', '');
+console.log(answer);
