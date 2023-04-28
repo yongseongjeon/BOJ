@@ -1,16 +1,17 @@
-const stdin = `1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890`;
+const stdin = `2931`;
 
 function isMultipleOf3(num) {
-  if (num === 0) return false;
-  return num.split('').reduce((acc, x) => acc + +x, 0) % 3 === 0;
+  const nums = num.toString().split('').map(Number);
+  const total = nums.reduce((prev, cur) => prev + cur);
+  return total % 3 === 0;
 }
 
-function isExistZero(num) {
-  return num.split('').some((x) => x === '0');
+function hasZero(str) {
+  return Boolean(~str.indexOf('0'));
 }
 
 function solve() {
-  if (!isMultipleOf3(stdin) || !isExistZero(stdin)) {
+  if (!isMultipleOf3(stdin) || !hasZero(stdin)) {
     return -1;
   }
   return stdin
