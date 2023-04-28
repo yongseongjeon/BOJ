@@ -1,9 +1,12 @@
-const stdin = `5
-11100
-11100
-00000
-00001
-00000
+// const stdin = require('fs').readFileSync('/dev/stdin').toString();
+const stdin = `7
+0110100
+0110101
+1110101
+0000111
+0100000
+0111110
+0111000
 `;
 
 const mapSize = stdin.split('\n').shift();
@@ -31,7 +34,6 @@ let k = 0;
 
 for (let i = 1; i <= mapSize; i += 1) {
   for (let j = 1; j <= mapSize; j += 1) {
-    debugger;
     dfs(i, j, ++k);
   }
 }
@@ -74,8 +76,6 @@ map
     result[x] = (result[x] || 0) + 1;
   });
 
-console.log('map', map);
-console.log('result', result);
 console.log(Object.keys(result).length);
 console.log(
   Object.values(result)
