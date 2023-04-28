@@ -2,8 +2,6 @@ const stdin = `10 1 5
 `;
 let [N, M, K] = stdin.split(' ').map(Number);
 
-debugger;
-
 while (K > 0) {
   if (N >= 2 * M) {
     N -= 1;
