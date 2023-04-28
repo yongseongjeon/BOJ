@@ -1,26 +1,26 @@
-const stdin = require("fs").readFileSync("/dev/stdin").toString();
-const [N, ...input] = stdin
+const stdin = `3
+21 Junkyu
+21 Dohyun
+20 Sunyoung
+`;
+
+const arr = stdin
   .trim()
-  .split("\n")
-  .map((x) => x.split(" "));
-const info = input.map((x, i) => {
-  return {
-    Age: x[0] / 1,
-    Name: x[1],
-    Index: i,
-  };
-});
+  .split('\n')
+  .slice(1)
+  .map((x, i) => [i, ...x.split(' ')]);
 
-info.sort((a, b) => {
-  if (a.Age === b.Age) {
-    return a.Index - b.Index;
+arr.sort((a, b) => {
+  const [aIdx, aAge] = a;
+  const [bIdx, bAge] = b;
+  if (aAge === bAge) {
+    return aIdx - bIdx;
   }
-  return a.Age - b.Age;
+  return aAge - bAge;
 });
 
-let answer = "";
-info.forEach((x) => {
-  answer += `${x.Age} ${x.Name}\n`;
-});
+const answer = arr.reduce((prev, cur) => {
+  return `${prev}${cur[1]} ${cur[2]}\n`;
+}, '');
 
 console.log(answer);
