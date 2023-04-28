@@ -8,31 +8,36 @@ const stdin = `7 7
 1111111
 `;
 
-const [N, M] = stdin.split('\n').shift().split(' ').map(Number);
+const [NM, ...rest] = stdin.trim().split('\n');
+const [N, M] = NM.split(' ').map(Number);
+const puzzle = rest.map((x) => x.split(''));
+const dy = [-1, 0, 1, 0];
+const dx = [0, 1, 0, -1];
 
-const maze = stdin
-  .trim()
-  .split('\n')
-  .slice(1)
-  .map((x) => x.split(''));
+function bfs() {
+  const start = [0, 0, 1];
+  const q = [start];
+  const v = Array(+N)
+    .fill(0)
+    .map(() => Array(+M).fill(false));
 
-const isVisited = [...Array(N)].map(() => Array(M).fill(false));
-const q = [[0, 0, 1]];
+  while (q.length) {
+    const cur = q.shift();
+    const [y, x, k] = cur;
 
-while (q.length) {
-  let [i, j, k] = q.shift();
+    if (y === N - 1 && x === M - 1) return k;
+    if (y >= N || y < 0 || x >= M || x < 0) continue;
+    if (puzzle[y][x] === '0') continue;
+    if (v[y][x]) continue;
 
-  if (i < 0 || j < 0 || i >= N || j >= M) continue;
-  if (isVisited[i][j]) continue;
-  if (maze[i][j] === '0') continue;
+    v[y][x] = true;
 
-  isVisited[i][j] = true;
-  maze[i][j] = k;
-
-  q.push([i - 1, j, k + 1]);
-  q.push([i + 1, j, k + 1]);
-  q.push([i, j - 1, k + 1]);
-  q.push([i, j + 1, k + 1]);
+    for (let i = 0; i <= 3; i += 1) {
+      const my = y + dy[i];
+      const mx = x + dx[i];
+      q.push([my, mx, k + 1]);
+    }
+  }
 }
 
-console.log(maze[N - 1][M - 1]);
+console.log(bfs());
