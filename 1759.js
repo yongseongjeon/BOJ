@@ -1,8 +1,4 @@
-// const STDIN = require('fs').readFileSync('/dev/stdin').toString();
-const stdin = `4 6
-a t c i s w
-`;
-
+const stdin = require('fs').readFileSync('/dev/stdin').toString();
 const [L, C] = stdin.split('\n')[0].split(' ').map(Number);
 const words = stdin.split('\n')[1].split(' ');
 
