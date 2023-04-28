@@ -16,9 +16,7 @@ function pour(from, to, bottles) {
 }
 
 function dfs() {
-  const isVisited = Array.from({ length: 201 }, () =>
-    Array.from({ length: 201 }, () => Array.from({ length: 201 }, () => false))
-  );
+  const isVisited = {};
   const stack = [bottles];
   let answer = [];
   while (stack.length) {
@@ -36,8 +34,8 @@ function dfs() {
     ];
     candidates.forEach((c) => {
       const [x, y, z] = c;
-      if (!isVisited[x][y][z]) {
-        isVisited[x][y][z] = true;
+      if (!isVisited[c.join('')]) {
+        isVisited[c.join('')] = true;
         stack.push(c);
       }
     });
